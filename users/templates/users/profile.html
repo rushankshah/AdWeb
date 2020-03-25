@@ -1,4 +1,11 @@
 {% extends 'adtool/base.html' %}
 {% block content %}
-<h1>{{ user.username }}</h1>
+
+<h2>{{ user.username }}</h2>
+<p>{{ user.email }}</p>
+<img src="{{ user.profile.image.url }}" alt=""
+    style="display: block; border: 1px solid black ; border-radius: 10px; width: 500px; height: auto;">
+<p>company: {{ user.profile.company }}</p>
+<p>location: {{ user.profile.location }}</p>
+
 {% endblock content %}
