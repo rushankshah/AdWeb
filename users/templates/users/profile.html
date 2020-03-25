@@ -1,11 +1,26 @@
 {% extends 'adtool/base.html' %}
 {% block content %}
 
-<h2>{{ user.username }}</h2>
-<p>{{ user.email }}</p>
-<img src="{{ user.profile.image.url }}" alt=""
-    style="display: block; border: 1px solid black ; border-radius: 10px; width: 500px; height: auto;">
-<p>company: {{ user.profile.company }}</p>
-<p>location: {{ user.profile.location }}</p>
+<div class="content-section">
+    <div class="media">
+        <div class="account-border"><img class="account-img account-border" src="{{ user.profile.image.url }}"
+                style="display: block; border: 1px solid black ; border-radius: 10px;"></div>
+        <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Profile Info</legend>
+            {{ u_form }}
+            {{ p_form }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Update</button>
+        </div>
+    </form>
+</div>
 
 {% endblock content %}
