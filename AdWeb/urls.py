@@ -20,8 +20,8 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('adtool.urls')),
-    path('users/', include('users.urls')),
+    path('site/', include('adtool.urls')),
+    path('', include('users.urls')),
 ]
 
 if settings.DEBUG:

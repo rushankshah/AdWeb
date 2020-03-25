@@ -1,14 +1,16 @@
 {% extends 'adtool/base.html' %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <fieldset>
-        <legend>Register
-        </legend>
-        {{ registerform }}
-    </fieldset>
-    <button type="submit">Register</button>
-    <small>Already have an account? <a href="#">login</a></small>
-
-</form>
-{% endblock %}
+<div class="content-section">
+    <form action="" method="post">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Join Today</legend>
+            {{ registerform }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Register</button>
+        </div>
+        <div class="border-top pt-3">Already have an Account? <a href="{% url 'users:login' %}">Login</a></div>
+    </form>
+</div>
+{% endblock content %}
