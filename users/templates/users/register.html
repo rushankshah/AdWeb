@@ -1,0 +1,14 @@
+{% extends 'adtool/base.html' %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Register
+        </legend>
+        {{ registerform }}
+    </fieldset>
+    <button type="submit">Register</button>
+    <small>Already have an account? <a href="#">login</a></small>
+
+</form>
+{% endblock %}
