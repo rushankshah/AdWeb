@@ -14,13 +14,15 @@ import json
 
 
 def index(request):
-    Advertisements = Advertisement.objects.all()
-    return render(request, 'adtool/index.html', context={'Advertisements': Advertisements})
+    Advertisements_by_current_user = Advertisement.objects.filter(
+        user=request.user)
+    return render(request, 'adtool/index.html', context={'Advertisements': Advertisements_by_current_user})
 
 
 def upload(request):
     if request.method == 'POST':
-        form = AdvertisementForm(request.POST, request.FILES)
+        form = AdvertisementForm(
+            user=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect('index')
