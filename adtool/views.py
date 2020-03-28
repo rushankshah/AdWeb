@@ -6,6 +6,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from .forms import AdvertisementForm
 from .models import Advertisement
+from django.views. generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+# For API
 import requests
 import random
 import math
@@ -13,10 +16,66 @@ import json
 # Create your views here.
 
 
+class AdvertisementListView(LoginRequiredMixin, ListView):
+    model = Advertisement
+    template_name = 'adtool/home.html'
+    context_object_name = 'Advertisements'
+    # ordering = ['-id']
+
+    def get_queryset(self):
+        return Advertisement.objects.filter(user=self.request.user).order_by('-id')
+
+
+class AdvertisementDetailView(LoginRequiredMixin, UserPassesTestMixin,  DetailView):
+    model = Advertisement
+
+    def test_func(self):
+        advertisement = self.get_object()
+        if self.request.user == advertisement.user:
+            return True
+        return False
+
+
+class AdvertisementCreateView(LoginRequiredMixin, CreateView):
+    model = Advertisement
+    fields = fields = ['name', 'ad_image', 'url_link', 'genre', 'category']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class AdvertisementUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Advertisement
+    fields = fields = ['name', 'ad_image', 'url_link', 'genre', 'category']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        advertisement = self.get_object()
+        if self.request.user == advertisement.user:
+            return True
+        return False
+
+
+class AdvertisementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+
+    model = Advertisement
+    success_url = '/site'
+
+    def test_func(self):
+        advertisement = self.get_object()
+        if self.request.user == advertisement.user:
+            return True
+        return False
+
+
 def index(request):
     Advertisements_by_current_user = Advertisement.objects.filter(
         user=request.user)
-    return render(request, 'adtool/index.html', context={'Advertisements': Advertisements_by_current_user})
+    return render(request, 'adtool/home.html', context={'Advertisements': Advertisements_by_current_user})
 
 
 def upload(request):

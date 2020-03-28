@@ -1,6 +1,8 @@
 from django import forms
 from .models import Advertisement
 
+# Redundant
+
 
 class AdvertisementForm(forms.ModelForm):
 
