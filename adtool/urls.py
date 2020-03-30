@@ -11,5 +11,7 @@ urlpatterns = [
          views.AdvertisementUpdateView.as_view(), name='update'),
     path('advertisement/<int:pk>/delete/',
          views.AdvertisementDeleteView.as_view(), name='delete'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('api/', views.api, name='api'),
+    path('api/advertisement/<int:pk>/', views.ad_redir, name='ad_redir'),
 ]

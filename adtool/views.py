@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, Http404
+from django.views. generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from .forms import AdvertisementForm
+from .models import Advertisement
+
+# For API
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .forms import AdvertisementForm
-from .models import Advertisement
-from django.views. generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-# For API
 import requests
 import random
 import math
@@ -72,6 +74,37 @@ class AdvertisementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteVie
         return False
 
 
+@login_required
+def dashboard(request):
+    return render(request, 'adtool/dashboard.html')
+
+
+@api_view(['GET', 'POST'])
+def api(request):
+
+    try:
+        random_pk = Advertisement.objects.count()*random.random()
+        random_pk = math.floor(random_pk) + 1
+        random_advertisement = Advertisement.objects.get(pk=random_pk)
+        # Retrieve advertisement image from Database here and send it as json
+        advertisement_site = f"{random_advertisement.url_link}"
+        advertisement_image = 'http://127.0.0.1:3000' + random_advertisement.ad_image.url
+        advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a>"
+        return JsonResponse(advertisement_html, safe=False)
+    except ValueError as e:
+        return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
+
+
+def ad_redir(self, pk):
+    ad = Advertisement.objects.get(pk=pk)
+    ad.clicks += 1
+    ad.save()
+
+    return redirect(str(Advertisement.objects.get(pk=pk).url_link))
+
+# index, upload, success are redundant
+
+
 def index(request):
     Advertisements_by_current_user = Advertisement.objects.filter(
         user=request.user)
@@ -92,19 +125,3 @@ def upload(request):
 
 def success(request):
     return HttpResponse('successfully uploaded')
-
-
-@api_view(['GET', 'POST'])
-def api(request):
-
-    try:
-        random_pk = Advertisement.objects.count()*random.random()
-        random_pk = math.floor(random_pk) + 1
-        random_advertisement = Advertisement.objects.get(pk=random_pk)
-        # Retrieve advertisement image from Database here and send it as json
-        advertisement_site = "http://127.0.0.1:3000/site/"
-        advertisement_image = 'http://127.0.0.1:3000' + random_advertisement.ad_image.url
-        advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a>"
-        return JsonResponse(advertisement_html, safe=False)
-    except ValueError as e:
-        return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
