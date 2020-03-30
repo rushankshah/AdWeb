@@ -87,7 +87,7 @@ def api(request):
         random_pk = math.floor(random_pk) + 1
         random_advertisement = Advertisement.objects.get(pk=random_pk)
         # Retrieve advertisement image from Database here and send it as json
-        advertisement_site = f"{random_advertisement.url_link}"
+        advertisement_site = f"http://127.0.0.1:3000/site/api/advertisement/{random_advertisement.pk}"
         advertisement_image = 'http://127.0.0.1:3000' + random_advertisement.ad_image.url
         advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a>"
         return JsonResponse(advertisement_html, safe=False)
