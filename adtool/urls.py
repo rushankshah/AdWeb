@@ -14,4 +14,5 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('api/', views.api, name='api'),
     path('api/advertisement/<int:pk>/', views.ad_redir, name='ad_redir'),
+    path('success/', views.success, name='success')
 ]

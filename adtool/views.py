@@ -87,9 +87,10 @@ def api(request):
         random_pk = math.floor(random_pk) + 1
         random_advertisement = Advertisement.objects.get(pk=random_pk)
         # Retrieve advertisement image from Database here and send it as json
-        advertisement_site = f"http://127.0.0.1:3000/site/api/advertisement/{random_advertisement.pk}"
-        advertisement_image = 'http://127.0.0.1:3000' + random_advertisement.ad_image.url
-        advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a>"
+        advertisement_site = f"http://{request.get_host()}/site/api/advertisement/{random_advertisement.pk}"
+        advertisement_image = f'http://{request.get_host()}' + \
+            random_advertisement.ad_image.url
+        advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a><h1>'hostname: {request.get_host()}'</h1>"
         return JsonResponse(advertisement_html, safe=False)
     except ValueError as e:
         return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
@@ -124,4 +125,4 @@ def upload(request):
 
 
 def success(request):
-    return HttpResponse('successfully uploaded')
+    return HttpResponse(f'hostname: {request.get_host()}')
