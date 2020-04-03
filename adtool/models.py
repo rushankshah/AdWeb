@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+import hashlib
 # Create your models here.
 
 
@@ -26,3 +27,18 @@ class Advertisement(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
+
+# These are people who display advertisements
+
+
+class AdvertisementClient(models.Model):
+    userKey = models.TextField(
+        max_length=32, default='00000000000000000000000000000000')
+
+    def __str__(self):
+        return self.userKey
+
+    # Generate an md5 hash key
+    def save(self, *args, **kwargs):
+        self.userKey = str(hashlib.md5(str(self.userKey).encode()).hexdigest())
+        super(AdvertisementClient, self).save(*args, **kwargs)

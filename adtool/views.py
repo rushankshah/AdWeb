@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, Http404
-from django.views. generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from .forms import AdvertisementForm
@@ -11,10 +11,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-import requests
-import random
-import math
-import json
+from adtool.advertisement_api import AdvertisementAPI
 # Create your views here.
 
 
@@ -80,17 +77,10 @@ def dashboard(request):
 
 
 @api_view(['GET', 'POST'])
-def api(request):
-
+def api(request, user_key):
     try:
-        random_pk = Advertisement.objects.count()*random.random()
-        random_pk = math.floor(random_pk) + 1
-        random_advertisement = Advertisement.objects.get(pk=random_pk)
-        # Retrieve advertisement image from Database here and send it as json
-        advertisement_site = f"http://{request.get_host()}/site/api/advertisement/{random_advertisement.pk}"
-        advertisement_image = f'http://{request.get_host()}' + \
-            random_advertisement.ad_image.url
-        advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a><h1>'hostname: {request.get_host()}'</h1>"
+        advertisementapi = AdvertisementAPI(request, Advertisement)
+        advertisement_html = advertisementapi.get_advertisement(user_key)
         return JsonResponse(advertisement_html, safe=False)
     except ValueError as e:
         return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
