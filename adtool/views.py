@@ -14,6 +14,11 @@ from rest_framework import status
 from adtool.advertisement_api import AdvertisementAPI
 # Create your views here.
 
+# testing
+import base64
+from PIL import Image
+from io import BytesIO
+
 
 class AdvertisementListView(LoginRequiredMixin, ListView):
     model = Advertisement
@@ -115,4 +120,10 @@ def upload(request):
 
 
 def success(request):
-    return HttpResponse(f'hostname: {request.get_host()}')
+    img_path = Advertisement.objects.get(pk=4).ad_image.path
+    image = Image.open(img_path)
+    img_format = image.format.lower()
+    with open(img_path, 'rb') as f:
+        img = base64.b64encode(f.read()).decode('utf-8')
+
+    return render(request, "adtool/test.html", {'img': img, 'img_format': img_format})
