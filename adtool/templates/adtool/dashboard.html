@@ -3,6 +3,16 @@
 
 {% block content %}
 <h1>Dashboard</h1>
+
+{% for ad in ads %}
+<div class="boottable">
+    <div class="y">ad.clicks</div>
+    <div class="x">ad.name</div>
+</div>
+{% endfor %}
+
+<h1>Dashboard end</h1>
+<h1>Piechart Example</h1>
 <div id="piechart"></div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

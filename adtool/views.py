@@ -78,7 +78,10 @@ class AdvertisementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteVie
 
 @login_required
 def dashboard(request):
-    return render(request, 'adtool/dashboard.html')
+    context = {
+        'ads': Advertisement,
+    }
+    return render(request, 'adtool/dashboard.html', context)
 
 
 @api_view(['GET', 'POST'])
