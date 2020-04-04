@@ -1,1 +1,2 @@
-Shoumik
+make genre: drop down rename it to category
+category rename to ad shape
