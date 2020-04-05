@@ -1,6 +1,7 @@
 {% extends 'adtool/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="container">
 <form method="POST">
     {% csrf_token %}
     <fieldset>
@@ -13,4 +14,5 @@
     <small>Need an account? <a href="{% url 'users:register' %}">Register</a></small>
 
 </form>
+</div>
 {% endblock content %}
