@@ -79,7 +79,7 @@ class AdvertisementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteVie
 @login_required
 def dashboard(request):
     context = {
-        'ads': Advertisement,
+        'ads': Advertisement.objects.filter(user=request.user),
     }
     return render(request, 'adtool/dashboard.html', context)
 
