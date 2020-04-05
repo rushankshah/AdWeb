@@ -3,7 +3,7 @@
 <div class="content-section">
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button type="submit">Upload</button>
     </form>
 </div>
