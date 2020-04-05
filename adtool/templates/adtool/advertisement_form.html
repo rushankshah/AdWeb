@@ -3,20 +3,15 @@
 {% block content %}
 
 <!-- <div class="content-section"> -->
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-<<<<<<< HEAD
-        {{ form|crispy }}
-        <button type="submit">Upload</button>
-=======
-        <!-- <div>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- <div>
         <img src="{{ object.ad_image.url }}"class="img-responsive"
         style="width: 100%; float: left; margin-right: 10px;"/>
         </div> -->
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-outline-dark">Upload</button>
->>>>>>> 7fc9568900cbb8030d2a716b91d89e222d631e78
-    </form>
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-outline-dark">Upload</button>
+</form>
 <!-- </div> -->
 
 
