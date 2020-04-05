@@ -3,11 +3,19 @@
 {% if object %}
 
 <div>
-    <div class="col-md-4">
-        {{ object.name }}
-        <img src="{{ object.ad_image.url }}" class="img-responsive"
-            style="width: 100%; float: left; margin-right: 10px;" />
-        <p>{{ object.ad_image }}</p>
+    <div class="container">
+        <legend>
+            <h3 class="h3">
+                {{ object.name }}
+            </h3>
+        </legend>
+        <div>
+            <img src="{{ object.ad_image.url }}" class="img-responsive"
+                style="width: 50%; float: left; margin-right: 10px;" />
+        </div>  
+        <p style="clear: left;"></p>
+        <br>
+        <p class="h6" style="clear:left;">{{ object.ad_image }}</p>
     </div>
 </div>
 

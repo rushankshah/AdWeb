@@ -4,19 +4,28 @@
 {% for advertisement in Advertisements %}
 <div>
     <div class="col-md-4">
-        <a href="{% url 'detail' advertisement.id %}">
-            {{ advertisement.name }}
-        </a>
-        {% if advertisement.user == user %}
-        <a href="{% url 'update' advertisement.id %}">update</a>
-        <a href="{% url 'delete' advertisement.id %}">delete</a>
-        {% endif %}
-        <img src="{{ advertisement.ad_image.url }}" class="img-responsive"
+       
+            <legend>
+                <a class="h5" href="{% url 'detail' advertisement.id %}" style="text-decoration: none; color: #00eaff;" onmouseover="this.style.color='#ff0000'" onMouseOut="this.style.color='#00eaff'">
+                    {{ advertisement.name }}
+                </a>
+            </legend>
+        
+            {% if advertisement.user == user %}
+            <div>
+                <a class="btn btn-outline-secondary" href="{% url 'update' advertisement.id %}">update</a>
+                <a class="btn btn-outline-danger" href="{% url 'delete' advertisement.id %}">delete</a>
+            </div>
+            <br>
+            {% endif %}
+            <img src="{{ advertisement.ad_image.url }}" class="img-responsive"
             style="width: 100%; float: left; margin-right: 10px;" />
-        <p>{{ advertisement.ad_image }}</p>
+          <p class="h6">{{ advertisement.ad_image }}</p>
+          <br>
+          <br>
     </div>
-</div>
 
+</div>
 {% endfor %}
 {% endif %}
 {% endblock content %}
