@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from .forms import AdvertisementForm
 from .models import Advertisement
 
@@ -78,8 +79,11 @@ class AdvertisementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteVie
 
 @login_required
 def dashboard(request):
+    ads = Advertisement.objects.filter(user=request.user)
+    ads = serializers.serialize('json', ads)
+
     context = {
-        'ads': Advertisement.objects.filter(user=request.user),
+        'ads': ads,
     }
     return render(request, 'adtool/dashboard.html', context)
 

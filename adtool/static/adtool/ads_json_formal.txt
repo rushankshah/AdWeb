@@ -1,0 +1,16 @@
+[
+	{
+		"model":,
+		"pk":,
+		"fields":
+		{
+			"name": "", 
+			"ad_image": "", 
+			"url_link": "", 
+			"clicks": , 
+			"genre": "", 
+			"category": "", 
+			"user": 
+		}
+	}
+]
