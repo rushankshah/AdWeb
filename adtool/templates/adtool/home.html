@@ -3,7 +3,7 @@
 {% if Advertisements %}
 {% for advertisement in Advertisements %}
 <div>
-    <div class="col-md-4">
+    <div class="container">
        
             <legend>
                 <a class="h5" href="{% url 'detail' advertisement.id %}" style="text-decoration: none; color: #00eaff;" onmouseover="this.style.color='#ff0000'" onMouseOut="this.style.color='#00eaff'">
@@ -19,8 +19,10 @@
             <br>
             {% endif %}
             <img src="{{ advertisement.ad_image.url }}" class="img-responsive"
-            style="width: 100%; float: left; margin-right: 10px;" />
-          <p class="h6">{{ advertisement.ad_image }}</p>
+            style="width: 50%; float: left; margin-right: 10px;" />
+            <p style="clear: left;"></p>
+            <p></p>
+          <p class="h6" style="clear: left;">{{ advertisement.ad_image }}</p>
           <br>
           <br>
     </div>
