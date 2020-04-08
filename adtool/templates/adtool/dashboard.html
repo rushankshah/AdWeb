@@ -7,15 +7,21 @@
 
 <div id="example"></div>
 
+<div id="chartdiv"></div>
 
-<script type="text/javascript">
+
+    <script type="text/javascript">
     // This stores the django template variables of this page
     var ads = "{{ ads|escapejs }}";
     ads = JSON.parse(ads)
 </script>
+<!-- <script type="module" src="//www.amcharts.com/lib/4/core.js"></script>
+<script type="module" src="//www.amcharts.com/lib/4/charts.js"></script>
+<script type="module" src="//www.amcharts.com/lib/4/maps.js"></script> -->
+<script type="module" src="{% static 'adtool/js/example.js' %}"></script>
 
-<!-- Edit the javascript link below -->
-<script type="text/javascript" src="{% static 'adtool/js/example.js' %}"></script>
+
+
 
 
 {% endblock content %}
