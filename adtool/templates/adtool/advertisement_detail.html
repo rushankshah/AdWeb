@@ -8,6 +8,8 @@
             <h3 class="h3">
                 {{ object.name }}
             </h3>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'update' advertisement.id %}">update</a>
+            <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'delete' advertisement.id %}">delete</a>
         </legend>
         <div>
             <img src="{{ object.ad_image.url }}" class="img-responsive"
@@ -16,6 +18,7 @@
         <p style="clear: left;"></p>
         <br>
         <p class="h6" style="clear:left;">{{ object.ad_image }}</p>
+        
     </div>
 </div>
 

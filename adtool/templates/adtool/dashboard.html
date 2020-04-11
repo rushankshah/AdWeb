@@ -9,8 +9,7 @@
 
 <div id="example"></div>
 
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+<div id="chartdiv"></div>
 
 
 <script type="text/javascript">
@@ -18,9 +17,13 @@
     var ads = "{{ ads|escapejs }}";
     ads = JSON.parse(ads)
 </script>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script type="module" src="{% static 'adtool/js/example.js' %}"></script>
 
-<!-- Edit the javascript link below -->
-<script type="text/javascript" src="{% static 'adtool/js/example.js' %}"></script>
+
+
 
 
 {% endblock content %}
