@@ -1,4 +1,5 @@
 {% extends 'adtool/base.html' %}
+{% load static %}
 {% block content %}
 {% if object %}
 
@@ -14,13 +15,23 @@
         <div>
             <img src="{{ object.ad_image.url }}" class="img-responsive"
                 style="width: 50%; float: left; margin-right: 10px;" />
-        </div>  
-        <p style="clear: left;"></p>
+        </div>
         <br>
-        <p class="h6" style="clear:left;">{{ object.ad_image }}</p>
-        
-    </div>
-</div>
+        <p class="h6" style="clear:left;">{{ object.url_link }}</p>
+        <canvas id="detail-click-chart"></canvas>
 
+    </div>
+  
+</div>
+<script>
+    click_log = JSON.parse("{{ click_log|escapejs }}")
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="{% static 'adtool/js/detail_click_chart.js' %}"></script>
+<!--
+    Comment Section
+    
+-->
 {% endif %}
 {% endblock content %}

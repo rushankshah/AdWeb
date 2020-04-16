@@ -23,7 +23,7 @@
             style="width: 50%; float: left; margin-right: 10px;" /> -->
             <!-- <p style="clear: left;"></p>
             <p></p> -->
-          <p class="article-content" style="clear: left;">{{ advertisement.ad_image }}</p>
+          <p class="article-content" style="clear: left;">{{ advertisement.url_link }}</p>
           <div>
             <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'update' advertisement.id %}">update</a>
             <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'delete' advertisement.id %}">delete</a>

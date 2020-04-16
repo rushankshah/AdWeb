@@ -1,4 +1,6 @@
-import "core-js";
+// import "core.js";
+
+
 
 let chart = am4core.create("chartdiv", am4charts.XYChart);
 

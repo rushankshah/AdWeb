@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from .forms import AdvertisementForm
-from .models import Advertisement
+from .models import Advertisement, AdvertisementLog
 
 # For API
 from rest_framework.views import APIView
@@ -39,6 +39,12 @@ class AdvertisementDetailView(LoginRequiredMixin, UserPassesTestMixin,  DetailVi
         if self.request.user == advertisement.user:
             return True
         return False
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        log = serializers.serialize('json', self.get_object().advertisementlog_set.all())
+        context['click_log'] = log
+        return context
 
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
@@ -102,6 +108,7 @@ def ad_redir(self, pk):
     ad = Advertisement.objects.get(pk=pk)
     ad.clicks += 1
     ad.save()
+    ad_log = AdvertisementLog.objects.create(ad=ad)
 
     return redirect(str(Advertisement.objects.get(pk=pk).url_link))
 
