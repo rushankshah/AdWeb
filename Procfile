@@ -1,1 +1,1 @@
-web: gunicorn AdWeb.wsgi
+worker: gunicorn AdWeb.wsgi
