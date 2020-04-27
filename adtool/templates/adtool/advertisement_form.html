@@ -3,32 +3,104 @@
 {% load static %}
 {% block content %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% if form.instance.ad_image %}
-    <img src="{{ form.instance.ad_image.url }}" alt="advertisement image" id="profile-img-tag" width="200px" />
-    {% else %}
-    <img src="{% static 'adtool/default_ad.png' %}" alt="advertisement image" id="profile-img-tag">
-    {% endif %}
-    <p>{{form.instance.ad_image}}</p>
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-outline-dark">Upload</button>    
-</form>
+<div class="row">
+    <div class="col-lg-5">
+        <!-- form -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-outline-dark">Upload</button>    
+        </form>
+    </div>
+    <div class="col-lg-7">
+        <!-- image -->
+        {% if form.instance.ad_image %}
+        <img src="{{ form.instance.ad_image.url }}" alt="advertisement image" id="profile-img-tag" width="200px" />
+        {% else %}
+        <img src="{% static 'adtool/default_ad.png' %}" alt="advertisement image" id="profile-img-tag">
+        {% endif %}
+    </div>
+</div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
+
+    const image_tag = '#profile-img-tag';
+    const id_image = '#id_ad_image';
+    let isImageSet = false;
+    switch($(image_tag).attr('src')) {
+        case "{% static 'adtool/Medium Rectangle (300x250px).png' %}":
+        case "{% static 'adtool/Large Rectangle (336x280px).png' %}":
+        case "{% static 'adtool/Leaderboard (720x90px).png' %}":
+        case "{% static 'adtool/Half Page (300x600px).png' %}":
+        case "{% static 'adtool/default_ad.png' %}": isImageSet = false; break;
+        default: isImageSet = true; break;
+    }
+
     function readURL(input) {
+        // Handling image input changing
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             
             reader.onload = function (e) {
-                $('#profile-img-tag').attr('src', e.target.result);
+                $(image_tag).attr('src', e.target.result);
+                isImageSet = true;
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $("#id_ad_image").change(function(){
+    $(id_image).change(function(){
         readURL(this);
+    });
+
+    function changeDefaultAd(select) {
+        if (!isImageSet) {
+            switch (select.value){
+                case 'medium rectangle':
+                    $(image_tag).attr('src', "{% static 'adtool/Medium Rectangle (300x250px).png' %}");
+                    break;
+                case 'large rectangle':
+                    $(image_tag).attr('src', "{% static 'adtool/Large Rectangle (336x280px).png' %}");
+                    break;
+                case 'leaderboard':
+                    $(image_tag).attr('src', "{% static 'adtool/Leaderboard (720x90px).png' %}");
+                    break;
+                case 'half page':
+                    $(image_tag).attr('src', "{% static 'adtool/Half Page (300x600px).png' %}");
+                    break;
+                case 'free size':
+                    $(image_tag).attr('src', "{% static 'adtool/default_ad.png' %}");
+                    break;
+            }
+        }
+        else {
+            $(image_tag).css({'object-fit': 'none', 'object-position': 'left top'})
+            switch (select.value){
+                case 'medium rectangle':
+                    $(image_tag).css({'width': 300, 'height': 250});
+                    break;
+                case 'large rectangle':
+                    $(image_tag).css({'width': 336, 'height': 280});
+                    break;
+                case 'leaderboard':
+                    $(image_tag).css({'width': 720, 'height': 90});
+                    break;
+                case 'half page':
+                    $(image_tag).css({'width': 300, 'height': 600});
+                    break;
+                case 'free size':
+                    $(image_tag).css({'object-fit': '', 'object-position': ''})
+                    $(image_tag).css({'width': '', 'height': ''});
+                    break;
+                default: 
+                    $(image_tag).css({'object-fit': '', 'object-position': ''})
+                    $(image_tag).css({'width': '', 'height': ''});
+                    break;
+            }
+        }
+    }
+    $('#id_category').change(function () {
+        changeDefaultAd(this);
     });
 </script>
 

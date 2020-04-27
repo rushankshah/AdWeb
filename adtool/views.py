@@ -49,7 +49,7 @@ class AdvertisementDetailView(LoginRequiredMixin, UserPassesTestMixin,  DetailVi
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
     model = Advertisement
-    fields = fields = ['name', 'ad_image', 'url_link', 'genre', 'category']
+    fields = fields = ['name', 'category', 'ad_image', 'url_link', 'genre']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -108,7 +108,6 @@ def ad_redir(self, pk):
     ad = Advertisement.objects.get(pk=pk)
     ad.clicks += 1
     ad.save()
-    ad_log = AdvertisementLog.objects.create(ad=ad)
 
     return redirect(str(Advertisement.objects.get(pk=pk).url_link))
 
