@@ -26,6 +26,7 @@ class AdvertisementListView(LoginRequiredMixin, ListView):
     template_name = 'adtool/home.html'
     context_object_name = 'Advertisements'
     # ordering = ['-id']
+    paginate_by = 5
 
     def get_queryset(self):
         return Advertisement.objects.filter(user=self.request.user).order_by('-id')

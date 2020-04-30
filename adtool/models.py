@@ -20,7 +20,7 @@ class Advertisement(ModelDiffMixin, models.Model):
             ('medium rectangle', '300x250 pixels'),
             ('large rectangle', '336x280 pixels'),
             ('leaderboard', '728x90 pixels'),
-            ('half page', '320x100 pixels'),
+            ('half page', '320x600 pixels'),
             ('free size', 'free size')
         ), 
         default='free size')

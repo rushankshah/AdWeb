@@ -15,7 +15,7 @@
     <div class="col-lg-7">
         <!-- image -->
         {% if form.instance.image %}
-        <img src="{{ form.instance.image.url }}" alt="advertisement image" id="profile-img-tag" width="200px" />
+        <img src="{{ form.instance.image.url }}" alt="advertisement image" id="profile-img-tag" />
         {% else %}
         <img src="{% static 'adtool/default_ad.png' %}" alt="advertisement image" id="profile-img-tag">
         {% endif %}
