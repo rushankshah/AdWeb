@@ -14,8 +14,8 @@
     </div>
     <div class="col-lg-7">
         <!-- image -->
-        {% if form.instance.ad_image %}
-        <img src="{{ form.instance.ad_image.url }}" alt="advertisement image" id="profile-img-tag" width="200px" />
+        {% if form.instance.image %}
+        <img src="{{ form.instance.image.url }}" alt="advertisement image" id="profile-img-tag" width="200px" />
         {% else %}
         <img src="{% static 'adtool/default_ad.png' %}" alt="advertisement image" id="profile-img-tag">
         {% endif %}
@@ -26,7 +26,7 @@
 <script type="text/javascript">
 
     const image_tag = '#profile-img-tag';
-    const id_image = '#id_ad_image';
+    const id_image = '#id_image';
     let isImageSet = false;
     switch($(image_tag).attr('src')) {
         case "{% static 'adtool/Medium Rectangle (300x250px).png' %}":
@@ -99,7 +99,7 @@
             }
         }
     }
-    $('#id_category').change(function () {
+    $('#id_size').change(function () {
         changeDefaultAd(this);
     });
 </script>

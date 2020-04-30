@@ -49,7 +49,7 @@ class AdvertisementDetailView(LoginRequiredMixin, UserPassesTestMixin,  DetailVi
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
     model = Advertisement
-    fields = fields = ['name', 'category', 'ad_image', 'url_link', 'genre']
+    fields = ['name', 'size', 'image', 'url_link', 'category']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -58,7 +58,7 @@ class AdvertisementCreateView(LoginRequiredMixin, CreateView):
 
 class AdvertisementUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Advertisement
-    fields = fields = ['name', 'ad_image', 'url_link', 'genre', 'category']
+    fields = ['name', 'image', 'url_link', 'size', 'category']
 
     def form_valid(self, form):
         form.instance.user = self.request.user

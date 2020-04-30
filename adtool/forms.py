@@ -19,4 +19,4 @@ class AdvertisementForm(forms.ModelForm):
 
     class Meta:
         model = Advertisement
-        fields = ['name', 'category', 'ad_image', 'url_link', 'genre']
+        fields = ['name', 'size', 'image', 'url_link', 'category']

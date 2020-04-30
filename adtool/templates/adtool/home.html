@@ -5,9 +5,9 @@
 <div class="card-columns">
     {% for advertisement in Advertisements %}
         <div class="card h-100">
-            <img src="{{ advertisement.ad_image.url }}" class="card-img-top" alt="advertisement image">
+            <img src="{{ advertisement.image.url }}" class="card-img-top" alt="advertisement image">
             <div class="card-body">
-                <h5 class="card-title">{{ advertisement.name }}</h5>
+                <a class="card-title h2 article-title" href="{% url 'detail' advertisement.id %}">{{ advertisement.name }}</a>
                 <p class="card-text">{{ advertisement.url_link }}</p>
                 <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'update' advertisement.id %}">update</a>
                 <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'delete' advertisement.id %}">delete</a>

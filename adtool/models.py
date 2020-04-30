@@ -11,11 +11,11 @@ from .custom_mixin import ModelDiffMixin
 
 class Advertisement(ModelDiffMixin, models.Model):
     name = models.CharField(max_length=50)
-    ad_image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     url_link = models.URLField(default="")
     clicks = models.IntegerField(default=0)
-    genre = models.CharField(max_length=30, default="")
-    category = models.CharField(
+    category = models.CharField(max_length=30, default="")
+    size = models.CharField(
             max_length=16, choices=(
             ('medium rectangle', '300x250 pixels'),
             ('large rectangle', '336x280 pixels'),

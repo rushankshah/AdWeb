@@ -4,24 +4,47 @@
 
 <div class="content-section">
     <div class="media">
-        <div class="account-border"><img class="account-img account-border" src="{{ user.profile.image.url }}"
-                style="display: block; border: 1px solid black ; border-radius: 10px;"></div>
+        <div class="account-border">
+            <img class="account-img account-border" src="{{ user.profile.image.url }}"
+                style="display: block; border: 1px solid black ; border-radius: 10px;">
+        </div>
         <div class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
             <p class="text-secondary">{{ user.email }}</p>
+            <input
+                form="profile-form"
+                type="file"
+                name="{{ p_form.image.name }}"
+                id="{{ p_form.image.id_for_label }}"
+                accept="image/*"
+                {% if form.image.value != None %}
+                    value="{{ p_form.image.value|stringformat:'s' }}"
+                {% endif %}
+            />
         </div>
     </div>
-    <form method="POST" enctype="multipart/form-data">
+    <form id="profile-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Profile Info</legend>
             {{ u_form|crispy }}
-            {{ p_form|crispy }}
+
+            {% for field in p_form %}
+                {% if field.id_for_label != 'id_image' %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        {{ field|as_crispy_field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                {% endif %}
+            {% endfor %}
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-info" type="submit">Update</button>
         </div>
     </form>
 </div>
-
 {% endblock content %}
