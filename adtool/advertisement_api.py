@@ -1,12 +1,12 @@
 import math
 import os
 from django.conf import settings
-import random
+from random import randint
 import base64
 import os.path
 from adtool.models import AdvertisementClient
 from PIL import Image
-
+from django.db.models.aggregates import Count
 
 class AdvertisementAPI:
 
@@ -33,19 +33,18 @@ class AdvertisementAPI:
     def advertisement_selection(self):
         # Decides how are advertisements retrieved from database
         # it is in random mode
-        random_pk = self.model.objects.count()*random.random()
-        random_pk = math.floor(random_pk) + 1
-        random_advertisement = self.model.objects.get(pk=random_pk)
-        return random_advertisement
+        count=self.model.objects.aggregate(count=Count('id'))['count']
+        random_index=randint(0, count-1)
+        return self.model.objects.all()[random_index] 
 
     def advertisement_html_maker(self, advertisement):
         advertisement_site = f"http://{self.request.get_host()}/site/api/advertisement/{advertisement.pk}"
-        advertisement_image = f"http://{self.request.get_host()}{advertisement.ad_image.url}"
+        advertisement_image = f"http://{self.request.get_host()}{advertisement.image.url}"
         advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a>"
         return advertisement_html
 
     def advertisement_html_maker_base64(self, advertisement):
-        img_path = advertisement.ad_image.path
+        img_path = advertisement.image.path
         image = Image.open(img_path)
         img_format = image.format.lower()
         with open(img_path, 'rb') as f:

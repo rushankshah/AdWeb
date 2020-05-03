@@ -7,8 +7,6 @@ ads.forEach(element => {
     adclicks.push(element.fields.clicks);
     color = 'rgba(' + Math.ceil(Math.random()*255 + 1) + ', ' + Math.ceil(Math.random()*255 + 1) + ', ' + Math.ceil(Math.random()*255 + 1) + ', ' + 0.2 +')';
     colorlist.push(color);
-    console.log(color);
-    
 });
 
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -44,11 +42,21 @@ var myChart = new Chart(ctx, {
     options: {
         scales: {
             yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Clicks',
+                },
                 ticks: {
                     beginAtZero: true,
                     callback: function (value) { if (Number.isInteger(value)) { return value; } },
                     stepSize: 1
                 }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Hours',
+                },
             }]
         }
     }

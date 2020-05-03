@@ -20,7 +20,7 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('site/', include('adtool.urls')),
+    path('', include('adtool.urls')),
     path('', include('users.urls')),
 ]
 
