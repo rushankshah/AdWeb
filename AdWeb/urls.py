@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('adtool.urls')),
     path('', include('users.urls')),
+    path('adclient/', include('addisplay.urls')),
 ]
 
 if settings.DEBUG:

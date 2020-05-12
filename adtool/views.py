@@ -137,7 +137,7 @@ def upload(request):
 
 
 def success(request):
-    img_path = Advertisement.objects.get(pk=4).ad_image.path
+    img_path = Advertisement.objects.get(pk=4).image.path
     image = Image.open(img_path)
     img_format = image.format.lower()
     with open(img_path, 'rb') as f:

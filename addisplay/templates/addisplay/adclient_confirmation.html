@@ -1,0 +1,19 @@
+{% extends 'adtool/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Want to display Advertisements on your site?</h1>
+        <p class="lead"></p>
+        <hr class="my-4">
+        <p>Click the button down below and proceed to add your websites</p>
+        
+        <form method="post" class="form" name="action" value="adclient-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">Website Url</label>
+                <input id="websiteurl" type="url" class="form-control mx-sm-3 mb-2" placeholder="enter website url" name="website-url" pattern="https://.*" required/>
+            </div>
+            <button type="submit" class="btn btn-primary">Yes, activate</button>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'adtool/base.html' %}
+
+{% block content %}
+    <form method="post" class="form-inline" name="action" value="table-form">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+            <label for="websiteurl">Website Url</label>
+            <input id="websiteurl" type="url" class="form-control mx-sm-3 mb-2" placeholder="enter website url" name="website-url" pattern="https://.*" required/>
+            <button type="submit" class="btn btn-primary mr-sm-3 mb-2" name="btn" value="add">Add</button>
+            <button type="submit" class="btn btn-danger mb-2" name="btn" value="delete">Delete</button>
+        </div>
+        
+    </form>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Website</th>
+            <th scope="col">Key</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% if websites %}
+            {% for website in websites %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ website.url }}</td>
+                    <td>{{ website.userkey }}</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock content %}
