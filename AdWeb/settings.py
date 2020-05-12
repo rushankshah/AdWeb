@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'adtool.apps.AdtoolConfig',
     'users.apps.UsersConfig',
+    'addisplay.apps.AddisplayConfig',
 ]
 
 MIDDLEWARE = [

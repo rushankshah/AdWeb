@@ -1,18 +1,51 @@
 {% extends 'adtool/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-<div class="container">
-<form method="POST">
-    {% csrf_token %}
-    <fieldset>
-        <legend>
-            Login
-        </legend>
-        {{ form|crispy }}
-    </fieldset>
-    <button type="submit" class="btn btn-outline-primary">Login</button>
-    <small>Need an account? <a href="{% url 'users:register' %}">Register</a></small>
+<style>
+    :root {
+    --input-padding-x: .75rem;
+    --input-padding-y: .75rem;
+    }
 
-</form>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: -ms-flexbox;
+        display: -webkit-box;
+        display: flex;
+        -ms-flex-align: center;
+        -ms-flex-pack: center;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+    }
+
+    .form-signin {
+        width: 100%;
+        max-width: 420px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+</style>
+<div class="text-center">
+    <form class="form-signin" method="POST" style="background-color: white;">
+        <h1>AdWeb</h1>
+        {% csrf_token %}
+        <fieldset>
+            <legend>Login</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <p>Need an account? <a href="{% url 'users:register' %}">Register</a></p>
+    </form>
 </div>
 {% endblock content %}

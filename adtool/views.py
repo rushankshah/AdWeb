@@ -75,7 +75,7 @@ class AdvertisementUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
 class AdvertisementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     model = Advertisement
-    success_url = '/site'
+    success_url = '/'
 
     def test_func(self):
         advertisement = self.get_object()
@@ -95,13 +95,12 @@ def dashboard(request):
     return render(request, 'adtool/dashboard.html', context)
 
 
-@api_view(['GET', 'POST'])
-def api(request, user_key):
+def api(request, size, user_key):
     try:
-        advertisementapi = AdvertisementAPI(request, Advertisement)
+        advertisementapi = AdvertisementAPI(request, Advertisement, size)
         advertisement_html = advertisementapi.get_advertisement(user_key)
         return JsonResponse(advertisement_html, safe=False)
-    except ValueError as e:
+    except Exception as e:
         return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
 
 
@@ -111,6 +110,10 @@ def ad_redir(self, pk):
     ad.save()
 
     return redirect(str(Advertisement.objects.get(pk=pk).url_link))
+
+
+def landing(request):
+    return render(request, 'adtool/landing.html')
 
 # index, upload, success are redundant
 

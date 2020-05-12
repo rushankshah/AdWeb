@@ -3,19 +3,19 @@ import os
 from django.conf import settings
 from random import randint
 import base64
-import os.path
-from adtool.models import AdvertisementClient
+from addisplay.models import Website
 from PIL import Image
 from django.db.models.aggregates import Count
 
 class AdvertisementAPI:
 
-    def __init__(self, request, advertisement_model):
+    def __init__(self, request, advertisement_model, size):
         super().__init__()
         self.model = advertisement_model
         self.request = request
+        self.size = size
 
-    def get_advertisement(self, user_key, type="SLEEPING"):
+    def get_advertisement(self, user_key):
         # Gives back an html string of the advertisement or error
         try:
             if self.key_confirmation(user_key):
@@ -33,9 +33,10 @@ class AdvertisementAPI:
     def advertisement_selection(self):
         # Decides how are advertisements retrieved from database
         # it is in random mode
-        count=self.model.objects.aggregate(count=Count('id'))['count']
+        model_objects = self.model.objects.filter(size=self.size)
+        count=model_objects.count()
         random_index=randint(0, count-1)
-        return self.model.objects.all()[random_index] 
+        return model_objects[random_index] 
 
     def advertisement_html_maker(self, advertisement):
         advertisement_site = f"http://{self.request.get_host()}/site/api/advertisement/{advertisement.pk}"
@@ -49,13 +50,13 @@ class AdvertisementAPI:
         img_format = image.format.lower()
         with open(img_path, 'rb') as f:
             img = base64.b64encode(f.read()).decode('utf-8')
-        advertisement_site = f"http://{self.request.get_host()}/site/api/advertisement/{advertisement.pk}"
-        advertisement_image = f"<img src=\"data:images/{img_format};base64,{img}\">"
-        advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"data:images/{img_format};base64,{img}\"></a>"
+        advertisement_site = f'http://{self.request.get_host()}/site/api/advertisement/{advertisement.pk}'
+        advertisement_image = f'<img src="data:images/{img_format};base64,{img}">'
+        advertisement_html = f'<a href="{advertisement_site}"><img src="data:images/{img_format};base64,{img}"></a>'
         return advertisement_html
 
     def key_confirmation(self, user_key):
-        if AdvertisementClient.objects.get(userKey=user_key):
+        if Website.objects.get(userkey=user_key):
             return True
         else:
             return False

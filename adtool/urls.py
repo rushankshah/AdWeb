@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.AdvertisementListView.as_view(), name='index'),
+    path('', views.landing, name='landing'),
+    path('home', views.AdvertisementListView.as_view(), name='index'),
     path('advertisement/<int:pk>/',
          views.AdvertisementDetailView.as_view(), name='detail'),
     path('advertisement/upload/',
@@ -12,7 +13,7 @@ urlpatterns = [
     path('advertisement/<int:pk>/delete/',
          views.AdvertisementDeleteView.as_view(), name='delete'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('api/<str:user_key>', views.api, name='api'),
+    path('api/<str:size>/<str:user_key>', views.api, name='api'),
     path('api/advertisement/<int:pk>/', views.ad_redir, name='ad_redir'),
     path('success/', views.success, name='success')
 ]

@@ -1,5 +1,7 @@
 {% extends 'adtool/base.html' %}
 {% block content %}
-<h2>You have been Logged Out</h2>
-<h5>Login Again? <a href="{% url 'users:login' %}">Login</a></h5>
+<div class="content-section text-center">
+    <h2>You have been Logged Out</h2>
+    <h5>Login Again? <a href="{% url 'users:login' %}">Login</a></h5>
+</div>
 {% endblock content %}
