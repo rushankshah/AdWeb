@@ -1,30 +1,33 @@
 from django.shortcuts import render, redirect
-from .models import AdvertisementClient, Website
+from .models import Website
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 
 @login_required
 def register_website(request):
-    ac_check = AdvertisementClient.objects.filter(user=request.user)
-    if ac_check.exists():
+    user = request.user
+    if user.profile.is_adclient:
         if request.method == 'GET':
-            w = Website.objects.filter(client=ac_check.first())
+            w = Website.objects.filter(user=user)
             return render(request, 'addisplay/website_key.html', context={'websites': w})
         elif request.method == 'POST':
                 if request.POST['btn'] == 'add':
-                    Website.objects.create(client=ac_check.first(), url=request.POST['website-url']).save()
+                    Website.objects.create(user=user, url=request.POST['website-url']).save()
                 elif request.POST['btn'] == 'delete':
                     try:
-                        Website.objects.get(client=ac_check.first(), url=request.POST['website-url']).delete()
+                        Website.objects.get(user=user, url=request.POST['website-url']).delete()
                     except Exception as e:
                         pass
 
                 return redirect('adclient:register_website')
     else:
         if request.method == 'POST':
-            ac = AdvertisementClient.objects.create(user=request.user)
-            Website.objects.create(client=ac, url=request.POST['website-url']).save()
+            u_p = user.profile
+            u_p.is_adclient = True
+            u_p.save()
+            Website.objects.create(user=user, url=request.POST['website-url']).save()
             messages.success(request, "Your account has been updated, now you can display ads on your website")
             return redirect('adclient:register_website')
 

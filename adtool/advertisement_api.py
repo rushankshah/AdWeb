@@ -14,6 +14,7 @@ class AdvertisementAPI:
         self.model = advertisement_model
         self.request = request
         self.size = size
+        self.website_pk = None
 
     def get_advertisement(self, user_key):
         # Gives back an html string of the advertisement or error
@@ -39,7 +40,7 @@ class AdvertisementAPI:
         return model_objects[random_index] 
 
     def advertisement_html_maker(self, advertisement):
-        advertisement_site = f"http://{self.request.get_host()}/site/api/advertisement/{advertisement.pk}"
+        advertisement_site = f"http://{self.request.get_host()}/api/advertisement/{advertisement.pk}"
         advertisement_image = f"http://{self.request.get_host()}{advertisement.image.url}"
         advertisement_html = f"<a href=\"{advertisement_site}\"><img src=\"{advertisement_image}\"></a>"
         return advertisement_html
@@ -50,13 +51,18 @@ class AdvertisementAPI:
         img_format = image.format.lower()
         with open(img_path, 'rb') as f:
             img = base64.b64encode(f.read()).decode('utf-8')
-        advertisement_site = f'http://{self.request.get_host()}/site/api/advertisement/{advertisement.pk}'
+        advertisement_site = f'http://{self.request.get_host()}/api/advertisement/{advertisement.pk}/{self.website_pk}'
         advertisement_image = f'<img src="data:images/{img_format};base64,{img}">'
         advertisement_html = f'<a href="{advertisement_site}"><img src="data:images/{img_format};base64,{img}"></a>'
         return advertisement_html
 
     def key_confirmation(self, user_key):
-        if Website.objects.get(userkey=user_key):
-            return True
-        else:
+        try:
+            website = Website.objects.get(userkey=user_key)
+            if website:
+                self.website_pk = website.pk
+                return True
+            else:
+                return False
+        except :
             return False

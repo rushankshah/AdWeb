@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 import hashlib
 from .custom_mixin import ModelDiffMixin
+from addisplay.models import Website
 # Create your models here.
 
 
@@ -32,29 +33,9 @@ class Advertisement(ModelDiffMixin, models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
-    
-    def save(self, force_insert=False, force_update=False):
-        if self.has_changed:
-            if 'clicks' in self.changed_fields:
-                AdvertisementLog.objects.create(ad=self)
-        super(Advertisement, self).save(force_insert, force_update)
 
 class AdvertisementLog(models.Model):
     ad = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
+    site = models.ForeignKey(Website, on_delete=models.PROTECT)
     click_date = models.DateTimeField('date clicked', default=timezone.now)
 
-
-# These are people who display advertisements
-
-
-class AdvertisementClient(models.Model):
-    userKey = models.TextField(
-        max_length=32, default='00000000000000000000000000000000')
-
-    def __str__(self):
-        return self.userKey
-
-    # Generate an md5 hash key
-    def save(self, *args, **kwargs):
-        self.userKey = str(hashlib.md5(str(self.userKey).encode()).hexdigest())
-        super(AdvertisementClient, self).save(*args, **kwargs)

@@ -4,15 +4,8 @@ import string
 import secrets
 
 
-class AdvertisementClient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.user)
-
-
 class Website(models.Model):
-    client = models.ForeignKey(AdvertisementClient, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.URLField()
     userkey = models.CharField(max_length=32, default='0')
 

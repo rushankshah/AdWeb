@@ -19,6 +19,7 @@ from adtool.advertisement_api import AdvertisementAPI
 import base64
 from PIL import Image
 from io import BytesIO
+from addisplay.models import Website
 
 
 class AdvertisementListView(LoginRequiredMixin, ListView):
@@ -104,12 +105,16 @@ def api(request, size, user_key):
         return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
 
 
-def ad_redir(self, pk):
-    ad = Advertisement.objects.get(pk=pk)
-    ad.clicks += 1
-    ad.save()
-
-    return redirect(str(Advertisement.objects.get(pk=pk).url_link))
+def ad_redir(self, pk, site_pk):
+    try:
+        w = Website.objects.get(pk=site_pk)
+        ad = Advertisement.objects.get(pk=pk)
+        ad.clicks += 1
+        ad.save()
+        AdvertisementLog.objects.create(ad=ad, site=w)
+        return redirect(str(Advertisement.objects.get(pk=pk).url_link))
+    except Exception as e:
+        return Http404()
 
 
 def landing(request):

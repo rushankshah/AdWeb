@@ -14,6 +14,6 @@ urlpatterns = [
          views.AdvertisementDeleteView.as_view(), name='delete'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('api/<str:size>/<str:user_key>', views.api, name='api'),
-    path('api/advertisement/<int:pk>/', views.ad_redir, name='ad_redir'),
+    path('api/advertisement/<int:pk>/<int:site_pk>', views.ad_redir, name='ad_redir'),
     # path('success/', views.success, name='success')
 ]

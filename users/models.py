@@ -11,6 +11,7 @@ class Profile(models.Model):
     image = models.ImageField(default='default.png', upload_to='profile_pics')
     company = models.CharField(max_length=256, default="")
     location = models.CharField(max_length=256, default="")
+    is_adclient = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username} Profile'
