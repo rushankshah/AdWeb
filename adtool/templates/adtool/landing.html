@@ -1,6 +1,64 @@
 {% extends 'adtool/base.html' %}
 {% block content %}
 
-<p>Test </p>
-
+<div class="jumbotron">
+    <h1 class="display-4">
+        Want to Advertise?
+    </h1>
+    <p class="lead">Follow the steps below</p>
+    <hr class="my-4" />
+    <ol>
+        <li>If you don't have an account: <br> Register an account and Login <br>If you have an account login</li>
+        <li>Click on New Ad on nav-bar</li>
+        <li>Fill  details about the advertisement then click Upload</li>
+        <li>Done! now the advertisement can be displayed</li>
+    </ol>
+</div>
+<div class="jumbotron">
+    <h1 class="display-4">
+        Want to Receive Ads?
+    </h1>
+    <p class="lead">Follow the steps below</p>
+    <hr class="my-4" />
+    <ol>
+        <li>If you don't have an account: <br> Register an account and Login <br>If you have an account login</li>
+        <li>Click on Adclient on nav-bar</li>
+        <li>Enter the website url you want to display ads on and then click activate</li>
+        <li>Now you can add all the websites you want ads on</li>
+        <p>NOTE: keep your Keys a secret</p>
+        <li>To Receive Advertisements, copy your key and send a get request to <br> <em>http://&lt;Domain name of this site&gt;/&lt;Size of advertisement&gt;/&lt;your key&gt;</em></li>
+        <table>
+            <thead>
+                <th>size name</th>
+                <th>pixels</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>leaderboard</td>
+                    <td>(728x90px)</td>
+                </tr>
+                <tr>
+                    <td>medium rectange</td>
+                    <td>(300x250px)</td>
+                </tr>
+                <tr>
+                    <td>large rectangle</td>
+                    <td>(336x280px)</td>
+                </tr>
+                <tr>
+                    <td>half page</td>
+                    <td>(320x600px)</td>
+                </tr>
+                <tr>
+                    <td>free size</td>
+                    <td>-infinity to +infinity</td>
+                </tr>
+            </tbody>
+        </table>
+    </ol>
+    <p>for Example: try typing curl "http://&lt;Domain name of this site&gt;/&lt;Size of advertisement&gt;/&lt;your key&gt;"</p>
+    <p>(Substitute the values)</p>
+    <p>You will receive an html of the advertisement</p>
+    <p>You can use requests module in python and node.js to send a get request to the url (It comes in JSon format)</p>
+</div>
 {% endblock content %}

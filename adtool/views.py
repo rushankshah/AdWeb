@@ -103,6 +103,7 @@ def api(request, size, user_key):
         return JsonResponse(advertisement_html, safe=False)
     except Exception as e:
         return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
+    
 
 
 def ad_redir(self, pk, site_pk):

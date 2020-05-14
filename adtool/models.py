@@ -10,7 +10,7 @@ from addisplay.models import Website
 
 
 
-class Advertisement(ModelDiffMixin, models.Model):
+class Advertisement(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='images/')
     url_link = models.URLField(default="")
