@@ -15,5 +15,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('api/<str:size>/<str:user_key>', views.api, name='api'),
     path('api/advertisement/<int:pk>/<int:site_pk>', views.ad_redir, name='ad_redir'),
+    path('about/',views.about,name = 'about')
     # path('success/', views.success, name='success')
 ]

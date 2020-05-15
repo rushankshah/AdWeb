@@ -121,6 +121,9 @@ def ad_redir(self, pk, site_pk):
 def landing(request):
     return render(request, 'adtool/landing.html')
 
+def about(request):
+    return render(request, 'adtool/about.html')
+
 # index, upload, success are redundant
 
 
