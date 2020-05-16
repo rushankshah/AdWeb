@@ -31,6 +31,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'adtool.apps.AdtoolConfig',
+    'users.apps.UsersConfig',
+    'addisplay.apps.AddisplayConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,9 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'adtool.apps.AdtoolConfig',
-    'users.apps.UsersConfig',
-    'addisplay.apps.AddisplayConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,16 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'adweb',
+#         'USER': 'adweb',
+#         'PASSWORD': 'pass@123',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
@@ -131,3 +142,16 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'users:login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+try:
+    EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+except:
+    EMAIL_HOST_USER = None
+    EMAIL_HOST_PASSWORD = None
+

@@ -45,6 +45,7 @@
             {{ form|crispy }}
         </fieldset>
         <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <a href="{% url 'users:password_reset' %}"><small>Forgot password?</small></a>
         <p>Need an account? <a href="{% url 'users:register' %}">Register</a></p>
     </form>
 </div>

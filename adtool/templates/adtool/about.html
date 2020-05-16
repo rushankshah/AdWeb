@@ -1,0 +1,25 @@
+{% extends 'adtool/base.html' %}
+{% load static %}
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">What is this site exactly about?</h1>
+    <p class="lead">This service sends advertisements in HTML format to the backend of our service websites who want to display ads. It tracks the ads. Digital Advertisement Management.</p>
+</div>
+<div>
+    <h1 class="display-4">Who are the makers?</h1>
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="{% static 'adtool/Shoumik.png' %}" class="rounded-circle" height="200" width="200">
+            <h2 class="h2">Shoumik Gandre</h2>
+        </div>
+        <div class="col-lg-4">
+            <img src="{% static 'adtool/Rushank.jpg' %}" class="rounded-circle" height="200" width="200">
+            <h2 class="h2">Rushank Shah</h2>
+        </div>
+        <div class="col-lg-4">
+            <img src="{% static 'adtool/Kimaya.jpg' %}" class="rounded-circle" height="200" width="200">
+            <h2 class="h2">Kimaya Kelbaikar</h2>
+        </div>
+    </div>
+</div>
+{% endblock content %}

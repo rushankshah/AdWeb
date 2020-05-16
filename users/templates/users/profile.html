@@ -6,11 +6,12 @@
     <div class="media">
         <div class="account-border">
             <img class="account-img account-border" src="{{ user.profile.image.url }}"
-                style="display: block; border: 1px solid black ; border-radius: 10px;">
+                style="display: block; border: 1px solid black ; border-radius: 10px;" id="image_tag">
         </div>
         <div class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
             <p class="text-secondary">{{ user.email }}</p>
+            <h6 class="h6">Want to change profile picture? Just add it here!</h3>
             <input
                 form="profile-form"
                 type="file"
@@ -47,4 +48,22 @@
         </div>
     </form>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript">
+    function readURL(input) {
+        // Handling image input changing
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $("{{ p_form.image.id_for_label }}").attr('src', e.target.result);
+                // isImageSet = true;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("image_tag").change(function(){
+        readURL(this);
+    });
+</script>
 {% endblock content %}
