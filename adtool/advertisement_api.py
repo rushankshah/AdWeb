@@ -53,7 +53,7 @@ class AdvertisementAPI:
             img = base64.b64encode(f.read()).decode('utf-8')
         advertisement_site = f'http://{self.request.get_host()}/api/advertisement/{advertisement.pk}/{self.website_pk}'
         advertisement_image = f'<img src="data:images/{img_format};base64,{img}">'
-        advertisement_html = f'<a href="{advertisement_site}"><img src="data:images/{img_format};base64,{img}"></a>'
+        advertisement_html = f'<a target="_blank" href="{advertisement_site}"><img src="data:images/{img_format};base64,{img}"></a>'
         return advertisement_html
 
     def key_confirmation(self, user_key):

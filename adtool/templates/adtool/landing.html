@@ -56,9 +56,23 @@
             </tbody>
         </table>
     </ol>
-    <p>for Example: try typing curl "http://&lt;Domain name of this site&gt;/&lt;Size of advertisement&gt;/&lt;your key&gt;"</p>
+    <p>for Example: try typing this in command prompt curl "http://&lt;Domain name of this site&gt;/api/&lt;Size of advertisement&gt;/&lt;your key&gt;"</p>
     <p>(Substitute the values)</p>
-    <p>You will receive an html of the advertisement</p>
-    <p>You can use requests module in python and node.js to send a get request to the url (It comes in JSon format)</p>
+    <p>You will receive an html of the advertisement in JSon</p>
+    <p>You can use requests module in python and node.js to send a get request to the url (It comes in JSon format so parse it)</p>
+    <p>Python code to receive ads (advertisement_html has the advertisement)</p>
+    <pre>
+        <code>
+            import requests
+    
+            DOMAIN = '&lt;Domain name of this site&gt;
+            SIZE = '&lt;size of the advertisement you want&gt;
+            KEY = '&lt;Your Key&gt;
+    
+            r = requests.get(f"http://{DOMAIN}/api/{SIZE}/{KEY}")
+            advertisement_html = r.json()
+        </code>
+    </pre>
+
 </div>
 {% endblock content %}
